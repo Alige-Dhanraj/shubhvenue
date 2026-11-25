@@ -1,0 +1,351 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>ShubhVenue — Evals</title><link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet"><style>:root{color-scheme:light}*{box-sizing:border-box}body{margin:0;background:#faf7f5;color:#1d1418;font:16px/1.6 "Plus Jakarta Sans",system-ui,sans-serif}
+.top{background:#fff;border-bottom:1px solid #ece4e7}.top div{max-width:1040px;margin:0 auto;padding:14px 20px;display:flex;gap:18px;align-items:center;flex-wrap:wrap}
+.top b{color:#7d1d3f;font-size:19px;margin-right:auto}.top b span{color:#f2a900}.top a{color:#6e6166;text-decoration:none;font-weight:600}.top a.on{color:#7d1d3f}
+main{max-width:1040px;margin:0 auto;padding:28px 20px 60px}h1{font-size:34px;letter-spacing:-.02em;margin:0 0 12px}h2{font-size:22px;color:#7d1d3f;margin:36px 0 10px}
+a{color:#7d1d3f}.tw{overflow-x:auto;background:#fff;border:1px solid #ece4e7;border-radius:14px;margin:12px 0}table{border-collapse:collapse;width:100%;font-size:14.5px}
+th,td{padding:10px 12px;border-bottom:1px solid #ece4e7;text-align:left;vertical-align:top}th{background:#fbf0f3;color:#7d1d3f;font-size:13px}tr:last-child td{border-bottom:0}
+footer{color:#6e6166;font-size:13px;margin-top:40px}</style></head><body><div class="top"><div><b>Shubh<span>Venue</span></b><a href="./">Live app</a><a href="prompts.html" class="">Prompts</a><a href="evals.html" class="on">Evals</a></div></div><main><h1>ShubhVenue — Evals</h1>
+<p>All 21 automated checks pass and can be rerun inside the <a href="./">app</a> (<strong>For reviewers → Run the 21 automated tests</strong>). Human tests have a ready script; results are filled in as they are run. The decisions behind the build are on the <a href="prompts.html">Prompts page</a>.</p>
+<h2>1. What I needed to prove</h2>
+<p>The product makes one promise: what a family sees is true, and the money is right. Six claims test that promise; five are proven in code, and the people-facing ones are tested with real users.</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Claim</th>
+<th>Checks</th>
+<th>Evidence</th>
+<th>Status</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Families never see a hall that is already taken</td>
+<td>E1, E2, E9, E14, E20</td>
+<td>3,610 free halls shown across 90 dates, 0 actually taken; an owner's block hides the hall instantly</td>
+<td>Pass</td>
+</tr>
+<tr>
+<td>Two families can never book the same hall on the same date</td>
+<td>E3, E4, E10, E22</td>
+<td>Second booking blocked, even during checkout and after a failed payment is retried (1 booking only)</td>
+<td>Pass</td>
+</tr>
+<tr>
+<td>Search shows only halls that fit the guests, budget and event</td>
+<td>E5, E21</td>
+<td>6,096 results across 32 filter combinations, 0 that don't fit; no mantapas offered for a conference</td>
+<td>Pass</td>
+</tr>
+<tr>
+<td>The money always adds up, for families and venues</td>
+<td>E11, E15, E16, E17</td>
+<td>120 price quotes, 0 wrong; coupon cap applied; venue payout = advance − 5% commission</td>
+<td>Pass</td>
+</tr>
+<tr>
+<td>Owners can keep the calendar honest with little effort</td>
+<td>E8, E19, E23 · human E7</td>
+<td>WhatsApp messages read correctly (6 of 6, including messy ones); blocked date disappears from search</td>
+<td>Pass in code · E7 pending</td>
+</tr>
+<tr>
+<td>Real people can book fast and understand what they paid</td>
+<td>Human E6, E24, E25</td>
+<td>Script below</td>
+<td>Pending</td>
+</tr>
+</tbody>
+</table></div>
+<h2>2. Three edge cases worth a look</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Edge case</th>
+<th>What should happen</th>
+<th>Result</th>
+<th>Try it yourself</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Another family tries to book the hall you are paying for</td>
+<td>Blocked for the 10-minute hold; opens again if your hold expires</td>
+<td>Blocked during hold; bookable after expiry (E4)</td>
+<td>Checkout → Reviewer tests → "Another family tries to book"</td>
+</tr>
+<tr>
+<td>Your payment fails and you try again</td>
+<td>Hall stays held for you; retry books once; a double tap doesn't book twice</td>
+<td>1 booking created; double submit blocked (E22)</td>
+<td>Checkout → Reviewer tests → "Payment fails"</td>
+</tr>
+<tr>
+<td>An owner pastes a messy WhatsApp booking ("marriage on 3rd march for 300 people")</td>
+<td>Date, name and guests read correctly; blocking hides the hall from families</td>
+<td>6 of 6 messages read correctly, 0 crashes (E19, E23)</td>
+<td>Owner → WhatsApp intake → "Use a sample message"</td>
+</tr>
+</tbody>
+</table></div>
+<h2>3. Human tests</h2>
+<p>Code can prove the rules; only people can show the app is easy and clear. Each tester gets the link and one line of instructions, no demo.</p>
+<p><strong>Script (read out exactly):</strong></p>
+<ol>
+<li><em>Family task:</em> "You need a hall in Bangalore for 250 guests on 12 December, hall budget up to ₹2,00,000. Book one."</li>
+<li><em>After paying, ask:</em> "How much did you pay? When is the rest due? Until when can you cancel for a full refund?"</li>
+<li><em>Owner task (on a phone):</em> "You are the owner. A family just booked 14 Feb on WhatsApp. Make sure nobody else can book it."</li>
+</ol>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Test</th>
+<th>Pass mark</th>
+<th>Tester</th>
+<th>Time</th>
+<th>Errors / confusion</th>
+<th>Result</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>E6</td>
+<td>Date to paid booking</td>
+<td>Under 60 s, no help</td>
+<td></td>
+<td></td>
+<td></td>
+<td>Pending</td>
+</tr>
+<tr>
+<td>E24</td>
+<td>First-time users complete the family task</td>
+<td>3 of 3 complete</td>
+<td></td>
+<td></td>
+<td></td>
+<td>Pending</td>
+</tr>
+<tr>
+<td>E25</td>
+<td>Explains amount paid, balance date and refund rule</td>
+<td>All 3 correct</td>
+<td></td>
+<td></td>
+<td></td>
+<td>Pending</td>
+</tr>
+<tr>
+<td>E7</td>
+<td>Owner blocks a WhatsApp-booked date on mobile</td>
+<td>Under 10 s</td>
+<td></td>
+<td></td>
+<td></td>
+<td>Pending</td>
+</tr>
+</tbody>
+</table></div>
+<h2>4. All 21 automated checks</h2>
+<p>Run on 26 Nov 2026 on a fresh copy of the sample data (40 venues, 52 halls, bookings from Nov 2026 to Mar 2027).</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Scenario</th>
+<th>Expected</th>
+<th>Actual</th>
+<th>Status</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>E1</td>
+<td>A booked or blocked hall never appears in customer search</td>
+<td>0 taken halls shown</td>
+<td>3610 free halls shown across 90 dates, 0 actually taken</td>
+<td>Pass</td>
+</tr>
+<tr>
+<td>E2</td>
+<td>Owner blocks a date → it disappears from search instantly</td>
+<td>Hall hidden after block</td>
+<td>shown before: true; after: false</td>
+<td>Pass</td>
+</tr>
+<tr>
+<td>E9</td>
+<td>A venue with one hall booked still shows its other free hall</td>
+<td>Venue still shown via free hall</td>
+<td>Palm Grove Lawns still shown with: Garden Lawn</td>
+<td>Pass</td>
+</tr>
+<tr>
+<td>E14</td>
+<td>Nearby-date suggestions only include dates with a free hall</td>
+<td>Every suggested date has a free hall</td>
+<td>177 suggestions, 0 wrong</td>
+<td>Pass</td>
+</tr>
+<tr>
+<td>E20</td>
+<td>Freshness: owner update refreshes the stamp; stale venues rank below fresh ones</td>
+<td>Stamp refreshed; stale venues rank lower</td>
+<td>Lavender Banquets: 12 days ago → just now after owner edit</td>
+<td>Pass</td>
+</tr>
+<tr>
+<td>E3</td>
+<td>Two customers can never book the same hall on the same date</td>
+<td>Second booking blocked</td>
+<td>first: booked; second: blocked</td>
+<td>Pass</td>
+</tr>
+<tr>
+<td>E4</td>
+<td>Checkout hold: another family can't book during the 10 min; released after</td>
+<td>Blocked during hold, allowed after</td>
+<td>during hold: blocked; after expiry: booked</td>
+<td>Pass</td>
+</tr>
+<tr>
+<td>E10</td>
+<td>Owner cannot unblock a date a customer paid for</td>
+<td>Unblock refused</td>
+<td>unblock refused</td>
+<td>Pass</td>
+</tr>
+<tr>
+<td>E22</td>
+<td>Payment fails, then retried: hall stays held for that family and exactly one booking is created</td>
+<td>Hold kept; 1 booking only</td>
+<td>hold kept after failure: true; other family: blocked; retry: booked; double submit: blocked; bookings: 1</td>
+<td>Pass</td>
+</tr>
+<tr>
+<td>E5</td>
+<td>Guest, budget and filters never show a hall that doesn't fit</td>
+<td>0 halls that don't fit</td>
+<td>6096 results across 32 filter combos, 0 violations</td>
+<td>Pass</td>
+</tr>
+<tr>
+<td>E21</td>
+<td>Business events only show suitable venues (no mantapas or community halls for a conference)</td>
+<td>0 unsuitable venues</td>
+<td>1543 results for business events, 0 unsuitable</td>
+<td>Pass</td>
+</tr>
+<tr>
+<td>E11</td>
+<td>Full cost adds up (hall − offer − coupon + food + decor + split GST); advance = 10%</td>
+<td>Every quote matches the formula</td>
+<td>120 quotes, 0 wrong</td>
+<td>Pass</td>
+</tr>
+<tr>
+<td>E15</td>
+<td>Coupon SHUBH5: 5% capped at ₹10,000, first booking only</td>
+<td>Cap applied; second use rejected</td>
+<td>big hall: −₹10,000 (cap); small hall: −₹1,850; 2nd booking: rejected</td>
+<td>Pass</td>
+</tr>
+<tr>
+<td>E16</td>
+<td>Payout = advance − 5% commission (+ coupon top-up); released after cancel window</td>
+<td>Net payout reconciles; paid after cancel window</td>
+<td>advance ₹17,005 − commission ₹8,950 + coupon ₹8,950 = ₹17,005, scheduled</td>
+<td>Pass</td>
+</tr>
+<tr>
+<td>E17</td>
+<td>Paying the balance clears dues and issues a second receipt</td>
+<td>Advance + balance = hall rent; no double charge</td>
+<td>paid ₹17,900 + ₹1,61,100 = ₹1,79,000; double payment blocked</td>
+<td>Pass</td>
+</tr>
+<tr>
+<td>E12</td>
+<td>Cancel within 48h → full refund, date reopens; after 48h → advance kept</td>
+<td>100% refund at 47h, none at 49h; date reopens</td>
+<td>47h refund ₹17,900; 49h refund ₹0; date reopened</td>
+<td>Pass</td>
+</tr>
+<tr>
+<td>E13</td>
+<td>Owner pricing / weekday offer changes reach customers immediately</td>
+<td>Customer price changes at once</td>
+<td>weekday hall rent ₹1,79,000 → ₹1,43,200 with 20% offer</td>
+<td>Pass</td>
+</tr>
+<tr>
+<td>E8</td>
+<td>Customer booking appears on owner side instantly</td>
+<td>Booking on owner list; calendar shows paid</td>
+<td>SV3160 on owner list; calendar shows paid</td>
+<td>Pass</td>
+</tr>
+<tr>
+<td>E19</td>
+<td>WhatsApp intake reads date/name/guests and blocking hides the hall from search</td>
+<td>Date, name, guests read; hall hidden after block</td>
+<td>parsed 2027-02-14 · Lakshmi · 450 guests; shown before true, after false</td>
+<td>Pass</td>
+</tr>
+<tr>
+<td>E23</td>
+<td>Robustness: messy WhatsApp messages and odd search inputs never crash or show wrong halls</td>
+<td>0 crashes, 0 wrong halls</td>
+<td>6/6 messages read correctly (dates found or correctly not found); odd searches: 0 crashes, 0 wrong halls</td>
+<td>Pass</td>
+</tr>
+<tr>
+<td>E18</td>
+<td>Data covers Nov 1 2026 – Mar 31 2027 with bookings every month</td>
+<td>Bookings in every month</td>
+<td>40 venues; bookings per month: Nov 207, Dec 178, Jan 177, Feb 95, Mar 102</td>
+<td>Pass</td>
+</tr>
+<tr>
+<td>## 5. AI design critique, limits, and what I'd test next</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>AI design critique (not product validation).</strong> I asked ChatGPT and DeepSeek to judge the plan and the app as a strict hiring reviewer, in 9 rounds with a fixed format. It sharpened my thinking (score 84 → 93) but proves nothing about real users; where I took or overruled their advice is on the <a href="prompts.html">Prompts page</a>.</p>
+<p><strong>Limits</strong></p>
+<ul>
+<li>These checks prove the rules are right, not that families or venues will use the product.</li>
+<li>Venues, prices and bookings are sample data; payments are simulated.</li>
+<li>Each viewer's demo runs in their own browser, so two people can't book against each other live; E3, E4 and E22 test that rule in code.</li>
+</ul>
+<p><strong>What I'd test next</strong></p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Question</th>
+<th>How</th>
+<th>Success looks like</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Will owners keep the calendar live?</td>
+<td>2-week pilot with 5 venues in one area</td>
+<td>4 of 5 log every offline booking within a day</td>
+</tr>
+<tr>
+<td>Will families pay 10% before visiting?</td>
+<td>Test 10% vs ₹5,000 flat on real searches</td>
+<td>Payment rate up, 48h cancellations not up</td>
+</tr>
+<tr>
+<td>Does full cost up front help?</td>
+<td>Show full cost vs hall-only on cards</td>
+<td>Fewer drop-offs at checkout</td>
+</tr>
+</tbody>
+</table></div><footer>ShubhVenue · Groww APM case study · Alige Dhanraj</footer></main></body></html>

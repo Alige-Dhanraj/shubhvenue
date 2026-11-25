@@ -1,0 +1,108 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>ShubhVenue — Prompts</title><link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet"><style>:root{color-scheme:light}*{box-sizing:border-box}body{margin:0;background:#faf7f5;color:#1d1418;font:16px/1.6 "Plus Jakarta Sans",system-ui,sans-serif}
+.top{background:#fff;border-bottom:1px solid #ece4e7}.top div{max-width:1040px;margin:0 auto;padding:14px 20px;display:flex;gap:18px;align-items:center;flex-wrap:wrap}
+.top b{color:#7d1d3f;font-size:19px;margin-right:auto}.top b span{color:#f2a900}.top a{color:#6e6166;text-decoration:none;font-weight:600}.top a.on{color:#7d1d3f}
+main{max-width:1040px;margin:0 auto;padding:28px 20px 60px}h1{font-size:34px;letter-spacing:-.02em;margin:0 0 12px}h2{font-size:22px;color:#7d1d3f;margin:36px 0 10px}
+a{color:#7d1d3f}.tw{overflow-x:auto;background:#fff;border:1px solid #ece4e7;border-radius:14px;margin:12px 0}table{border-collapse:collapse;width:100%;font-size:14.5px}
+th,td{padding:10px 12px;border-bottom:1px solid #ece4e7;text-align:left;vertical-align:top}th{background:#fbf0f3;color:#7d1d3f;font-size:13px}tr:last-child td{border-bottom:0}
+footer{color:#6e6166;font-size:13px;margin-top:40px}</style></head><body><div class="top"><div><b>Shubh<span>Venue</span></b><a href="./">Live app</a><a href="prompts.html" class="on">Prompts</a><a href="evals.html" class="">Evals</a></div></div><main><h1>ShubhVenue — Prompts</h1>
+<p>I built <a href="./">ShubhVenue</a> with Claude and used ChatGPT and DeepSeek as critics. The prompts below are the record of <strong>11 product calls I made</strong>, including <strong>1 version I killed myself</strong> and <strong>4 pieces of AI advice I overruled or reframed</strong>. Evals are on a <a href="evals.html">separate page</a>.</p>
+<h2>1. Where I overruled the AI</h2>
+<p>The reviewers advised; I decided. These are the calls where I went against them, and why.</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>AI advice</th>
+<th>My call</th>
+<th>Why</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Switch to "request to book": a wedding hall isn't a cinema seat</td>
+<td><strong>Rejected</strong></td>
+<td>The date + hall is the scarce, standard part. Waiting is the exact problem I set out to remove. Menu and decor are agreed after the date is safe.</td>
+</tr>
+<tr>
+<td>Show families "calendar updated X hours ago" for trust</td>
+<td><strong>Reframed</strong></td>
+<td>A timestamp says "not real-time". Families see a "Live" badge; venues that don't confirm their calendar lose it and rank lower.</td>
+</tr>
+<tr>
+<td>Drop business events to stay focused</td>
+<td><strong>Kept 3, filtered</strong></td>
+<td>Office events matter in Bangalore. They only show suitable venues, and I name them as the first thing I'd cut.</td>
+</tr>
+<tr>
+<td>Remove "sample data" labels so it feels real</td>
+<td><strong>Kept, made subtle</strong></td>
+<td>Unlabelled fake data would cost more trust than it gains.</td>
+</tr>
+<tr>
+<td>Add interview numbers it suggested</td>
+<td><strong>Rejected</strong></td>
+<td>I didn't collect them, so they don't go in.</td>
+</tr>
+<tr>
+<td>Add a WhatsApp intake for owners</td>
+<td><strong>Accepted</strong></td>
+<td>It fits how venues already take bookings, which is my biggest adoption risk.</td>
+</tr>
+</tbody>
+</table></div>
+<h2>2. The 5 decisions that shaped the product</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Decision</th>
+<th>I started with</th>
+<th>What was wrong</th>
+<th>The prompt I wrote</th>
+<th>Trade-off I accepted</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Instant booking, not request-and-wait</strong></td>
+<td>Families "request" a date; the venue confirms</td>
+<td>It was the same phone call with extra steps</td>
+<td>"If availability is live, why would a family request? Let them book instantly with a small advance and pay the rest later, like a movie ticket."</td>
+<td>Only works if the calendar is truly live, so trust becomes the owner's job</td>
+</tr>
+<tr>
+<td><strong>Availability per hall, not per venue</strong></td>
+<td>One "free / booked" per venue</td>
+<td>One venue often has 2–3 halls; one booked hall hid the others</td>
+<td>"Study how venue software works for owners. Keep only what a prototype needs, and say why."</td>
+<td>More data for owners to keep updated</td>
+</tr>
+<tr>
+<td><strong>Real-time means real-time</strong></td>
+<td>"Calendar updated 16 hours ago" on every card</td>
+<td>It told families the data might be stale</td>
+<td>"Families should see live availability, like a cinema seat. Keeping the calendar honest is the owner's job."</td>
+<td>Needs an owner nudge and a ranking penalty to stay true</td>
+</tr>
+<tr>
+<td><strong>Show the full cost, not hall rent</strong></td>
+<td>Cards showed hall rent only</td>
+<td>Food, GST and deposit surprise families later</td>
+<td>"Map both journeys, find where each step breaks, and build only features that fix a break."</td>
+<td>Totals look bigger than competitors' hall-only prices</td>
+</tr>
+<tr>
+<td><strong>Reviews now, verified reviews later</strong></td>
+<td>Reviews ranked last in my priority table</td>
+<td>Families spending lakhs won't book a venue they can't trust</td>
+<td>"Don't you think reviews are crucial for any venue? Re-score them."</td>
+<td>Imported Google ratings first; only real bookings can leave reviews later</td>
+</tr>
+</tbody>
+</table></div>
+<h2>3. The rest of the build, in four phases</h2>
+<ol>
+<li><strong>Problem.</strong> "The problem isn't finding venues, it's that no one has reliable availability. Design for both sides." → a two-sided product. "Tell my real story and back it with secondary research; check every number." → sourced market data, unverified claims removed.</li>
+<li><strong>Plan before code.</strong> "Don't build yet. Have the plan judged by a strict reviewer; build only after it approves." → 3 plan revisions before any code.</li>
+<li><strong>Build.</strong> "Make it usable for a month: many venues, receipts, coupons, payouts. Learn from BookMyShow, Zomato, Swiggy and OYO." → 40 venues, bookings Nov 2026–Mar 2027. "Groww is in Bangalore; use Bangalore areas and Indian events." → 10 areas, 12 event types.</li>
+<li><strong>Simplify and check.</strong> "Rewrite the reviewer page so a 15-year-old understands it." → 10 short sections. Every version re-tested with the automated checks before publishing.</li>
+</ol>
+<p>Prompts are my own words, tidied for reading.</p><footer>ShubhVenue · Groww APM case study · Alige Dhanraj</footer></main></body></html>
