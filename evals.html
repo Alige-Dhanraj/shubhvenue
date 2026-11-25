@@ -4,10 +4,10 @@
 main{max-width:1040px;margin:0 auto;padding:28px 20px 60px}h1{font-size:34px;letter-spacing:-.02em;margin:0 0 12px}h2{font-size:22px;color:#7d1d3f;margin:36px 0 10px}
 a{color:#7d1d3f}.tw{overflow-x:auto;background:#fff;border:1px solid #ece4e7;border-radius:14px;margin:12px 0}table{border-collapse:collapse;width:100%;font-size:14.5px}
 th,td{padding:10px 12px;border-bottom:1px solid #ece4e7;text-align:left;vertical-align:top}th{background:#fbf0f3;color:#7d1d3f;font-size:13px}tr:last-child td{border-bottom:0}
-footer{color:#6e6166;font-size:13px;margin-top:40px}</style></head><body><div class="top"><div><b>Shubh<span>Venue</span></b><a href="./">Live app</a><a href="prompts.html" class="">Prompts</a><a href="evals.html" class="on">Evals</a></div></div><main><h1>ShubhVenue — Evals</h1>
-<p>All 21 automated checks pass and can be rerun inside the <a href="./">app</a> (<strong>For reviewers → Run the 21 automated tests</strong>). Human tests have a ready script; results are filled in as they are run. The decisions behind the build are on the <a href="prompts.html">Prompts page</a>.</p>
+pre{background:#1d1418;color:#f4edef;border-radius:12px;padding:14px 16px;overflow-x:auto;font-size:13px;line-height:1.5}code{font-family:ui-monospace,Menlo,monospace}h3{font-size:17px;margin:26px 0 8px}em{color:#6e6166}footer{color:#6e6166;font-size:13px;margin-top:40px}</style></head><body><div class="top"><div><b>Shubh<span>Venue</span></b><a href="./">Live app</a><a href="prompts.html" class="">Prompts</a><a href="evals.html" class="on">Evals</a></div></div><main><h1>ShubhVenue — Evals</h1>
+<p>All 21 automated checks pass. Anyone can rerun them inside the <a href="./">app</a> from <strong>For reviewers → Run the 21 automated tests</strong>. The decisions behind the build are on the <a href="prompts.html">Prompts page</a>.</p>
 <h2>1. What I needed to prove</h2>
-<p>The product makes one promise: what a family sees is true, and the money is right. Six claims test that promise; five are proven in code, and the people-facing ones are tested with real users.</p>
+<p>The product makes one promise: what a family sees is true, and the money is right. Five claims test that promise.</p>
 <div class="tw"><table>
 <thead>
 <tr>
@@ -33,26 +33,20 @@ footer{color:#6e6166;font-size:13px;margin-top:40px}</style></head><body><div cl
 <tr>
 <td>Search shows only halls that fit the guests, budget and event</td>
 <td>E5, E21</td>
-<td>6,096 results across 32 filter combinations, 0 that don't fit; no mantapas offered for a conference</td>
+<td>6,096 results across 32 filter combinations, 0 that don't fit</td>
 <td>Pass</td>
 </tr>
 <tr>
 <td>The money always adds up, for families and venues</td>
-<td>E11, E15, E16, E17</td>
-<td>120 price quotes, 0 wrong; coupon cap applied; venue payout = advance − 5% commission</td>
+<td>E11, E12, E13, E15, E16, E17</td>
+<td>120 price quotes, 0 wrong; refunds follow the 48-hour rule; venue payout = advance − 5% commission</td>
 <td>Pass</td>
 </tr>
 <tr>
 <td>Owners can keep the calendar honest with little effort</td>
-<td>E8, E19, E23 · human E7</td>
-<td>WhatsApp messages read correctly (6 of 6, including messy ones); blocked date disappears from search</td>
-<td>Pass in code · E7 pending</td>
-</tr>
-<tr>
-<td>Real people can book fast and understand what they paid</td>
-<td>Human E6, E24, E25</td>
-<td>Script below</td>
-<td>Pending</td>
+<td>E8, E19, E23</td>
+<td>WhatsApp booking messages read correctly (6 of 6, including messy ones); a blocked date disappears from search</td>
+<td>Pass</td>
 </tr>
 </tbody>
 </table></div>
@@ -87,67 +81,8 @@ footer{color:#6e6166;font-size:13px;margin-top:40px}</style></head><body><div cl
 </tr>
 </tbody>
 </table></div>
-<h2>3. Human tests</h2>
-<p>Code can prove the rules; only people can show the app is easy and clear. Each tester gets the link and one line of instructions, no demo.</p>
-<p><strong>Script (read out exactly):</strong></p>
-<ol>
-<li><em>Family task:</em> "You need a hall in Bangalore for 250 guests on 12 December, hall budget up to ₹2,00,000. Book one."</li>
-<li><em>After paying, ask:</em> "How much did you pay? When is the rest due? Until when can you cancel for a full refund?"</li>
-<li><em>Owner task (on a phone):</em> "You are the owner. A family just booked 14 Feb on WhatsApp. Make sure nobody else can book it."</li>
-</ol>
-<div class="tw"><table>
-<thead>
-<tr>
-<th>ID</th>
-<th>Test</th>
-<th>Pass mark</th>
-<th>Tester</th>
-<th>Time</th>
-<th>Errors / confusion</th>
-<th>Result</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>E6</td>
-<td>Date to paid booking</td>
-<td>Under 60 s, no help</td>
-<td></td>
-<td></td>
-<td></td>
-<td>Pending</td>
-</tr>
-<tr>
-<td>E24</td>
-<td>First-time users complete the family task</td>
-<td>3 of 3 complete</td>
-<td></td>
-<td></td>
-<td></td>
-<td>Pending</td>
-</tr>
-<tr>
-<td>E25</td>
-<td>Explains amount paid, balance date and refund rule</td>
-<td>All 3 correct</td>
-<td></td>
-<td></td>
-<td></td>
-<td>Pending</td>
-</tr>
-<tr>
-<td>E7</td>
-<td>Owner blocks a WhatsApp-booked date on mobile</td>
-<td>Under 10 s</td>
-<td></td>
-<td></td>
-<td></td>
-<td>Pending</td>
-</tr>
-</tbody>
-</table></div>
-<h2>4. All 21 automated checks</h2>
-<p>Run on 26 Nov 2026 on a fresh copy of the sample data (40 venues, 52 halls, bookings from Nov 2026 to Mar 2027).</p>
+<h2>3. All 21 automated checks</h2>
+<p>Run on 26 Nov 2026 on a fresh copy of the sample data.</p>
 <div class="tw"><table>
 <thead>
 <tr>
@@ -307,7 +242,7 @@ footer{color:#6e6166;font-size:13px;margin-top:40px}</style></head><body><div cl
 <td>Pass</td>
 </tr>
 <tr>
-<td>## 5. AI design critique, limits, and what I'd test next</td>
+<td>## 4. Limits, and what I'd test next</td>
 <td></td>
 <td></td>
 <td></td>
@@ -315,23 +250,25 @@ footer{color:#6e6166;font-size:13px;margin-top:40px}</style></head><body><div cl
 </tr>
 </tbody>
 </table></div>
-<p><strong>AI design critique (not product validation).</strong> I asked ChatGPT and DeepSeek to judge the plan and the app as a strict hiring reviewer, in 9 rounds with a fixed format. It sharpened my thinking (score 84 → 93) but proves nothing about real users; where I took or overruled their advice is on the <a href="prompts.html">Prompts page</a>.</p>
-<p><strong>Limits</strong></p>
+<p><strong>AI design critique is not product validation.</strong> ChatGPT and DeepSeek reviewed the plan and the app in 9 rounds (score 84 → 93). That sharpened the thinking but proves nothing about real users.</p>
 <ul>
 <li>These checks prove the rules are right, not that families or venues will use the product.</li>
 <li>Venues, prices and bookings are sample data; payments are simulated.</li>
-<li>Each viewer's demo runs in their own browser, so two people can't book against each other live; E3, E4 and E22 test that rule in code.</li>
 </ul>
-<p><strong>What I'd test next</strong></p>
 <div class="tw"><table>
 <thead>
 <tr>
-<th>Question</th>
-<th>How</th>
+<th>Next question</th>
+<th>How I'd test it</th>
 <th>Success looks like</th>
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>Can first-time users book without help?</td>
+<td>5 people, one-line task, timed, no demo</td>
+<td>5 of 5 finish in under a minute</td>
+</tr>
 <tr>
 <td>Will owners keep the calendar live?</td>
 <td>2-week pilot with 5 venues in one area</td>
@@ -339,13 +276,8 @@ footer{color:#6e6166;font-size:13px;margin-top:40px}</style></head><body><div cl
 </tr>
 <tr>
 <td>Will families pay 10% before visiting?</td>
-<td>Test 10% vs ₹5,000 flat on real searches</td>
-<td>Payment rate up, 48h cancellations not up</td>
-</tr>
-<tr>
-<td>Does full cost up front help?</td>
-<td>Show full cost vs hall-only on cards</td>
-<td>Fewer drop-offs at checkout</td>
+<td>10% vs a flat ₹5,000 advance</td>
+<td>Payment rate up, cancellations not up</td>
 </tr>
 </tbody>
-</table></div><footer>ShubhVenue · Groww APM case study · Alige Dhanraj</footer></main></body></html>
+</table></div><footer>ShubhVenue · product case study · Alige Dhanraj</footer></main></body></html>
